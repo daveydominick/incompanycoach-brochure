@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opleidingsgids - Professioneel InCompany Coach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Unbounded:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       DESIGN TOKENS
+       ═══════════════════════════════════════════════════════════════ */
+    :root {
+      --primary: #2c4796;
+      --primary-dark: #1e3470;
+      --accent: #d22987;
+      --bg-seashell: #faf0eb;
+      --bg-white: #ffffff;
+      --text-primary: #3c0e1d;
+      --text-secondary: #525252;
+      --text-muted: #737373;
+      --font-heading: 'Unbounded', sans-serif;
+      --font-body: 'Poppins', sans-serif;
+      --page-width: 210mm;
+      --page-height: 297mm;
+      --radius-full: 9999px;
+      --radius-2xl: 16px;
+      --radius-xl: 12px;
+      --radius-lg: 8px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PRINT SETUP
+       ═══════════════════════════════════════════════════════════════ */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 210mm;
+        background: white;
+      }
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+        page-break-inside: avoid;
+        break-after: page;
+        break-inside: avoid;
+      }
+      .page:last-child {
+        page-break-after: auto;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       BASE RESET
+       ═══════════════════════════════════════════════════════════════ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background: #d4d4d4;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      line-height: 1.2;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE CONTAINER
+       ═══════════════════════════════════════════════════════════════ */
+    .page {
+      width: var(--page-width);
+      height: var(--page-height);
+      aspect-ratio: 210 / 297;
+      margin: 20px auto;
+      background: var(--bg-white);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE 1: COVER C - Magazine
+       ═══════════════════════════════════════════════════════════════ */
+    .page-cover {
+      position: relative;
+      height: 100%;
+    }
+
+    .cover-bg-photo {
+      position: absolute;
+      inset: 0;
+      background-image: url('/images/brochure/7Z8A7736-2.jpg');
+      background-size: cover;
+      background-position: center top;
+    }
+
+    .cover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(44,71,150,0.95) 0%, rgba(44,71,150,0.7) 35%, transparent 70%);
+    }
+
+    .cover-top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 18mm 20mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cover-logo {
+      height: 10mm;
+      filter: brightness(0) invert(1);
+    }
+
+    .cover-year {
+      font-size: 10pt;
+      color: white;
+      font-weight: 500;
+      background: rgba(255,255,255,0.15);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+    }
+
+    .cover-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20mm;
+      color: white;
+    }
+
+    .cover-title {
+      font-family: var(--font-heading);
+      font-size: 28pt;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .cover-tagline {
+      font-size: 12pt;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 20px;
+    }
+
+    .cover-tags {
+      display: flex;
+      gap: 8px;
+    }
+
+    .cover-tag {
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE 2: INTRO D - Donker
+       ═══════════════════════════════════════════════════════════════ */
+    .page-intro {
+      background: var(--primary);
+      padding: 22mm 20mm;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .intro-label {
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+    }
+
+    .intro-pull-quote {
+      font-family: var(--font-heading);
+      font-size: 16pt;
+      color: white;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      padding-left: 16px;
+      border-left: 4px solid rgba(255,255,255,0.4);
+    }
+
+    .intro-body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .intro-body p {
+      font-size: 9.5pt;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+    }
+
+    .intro-signature {
+      margin-top: 16px;
+      font-family: var(--font-heading);
+      font-size: 11pt;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE 3: VOOR WIE A - Kaarten
+       ═══════════════════════════════════════════════════════════════ */
+    .page-voorwie {
+      background: var(--bg-seashell);
+      padding: 18mm 16mm;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .voorwie-header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-label {
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 18pt;
+      color: var(--primary);
+    }
+
+    .voorwie-intro {
+      text-align: center;
+      font-size: 10pt;
+      color: var(--text-secondary);
+      max-width: 90%;
+      margin: 0 auto 12px auto;
+      line-height: 1.6;
+    }
+
+    .voorwie-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .voorwie-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .voorwie-cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .voorwie-card {
+      background: white;
+      border-radius: var(--radius-2xl);
+      padding: 22px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .voorwie-photo {
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+    }
+
+    .icon-box {
+      height: 36px;
+      width: 36px;
+      border-radius: var(--radius-xl);
+      background: rgba(44, 71, 150, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-bottom: 10px;
+    }
+
+    .icon-box svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .voorwie-card h3 {
+      font-family: var(--font-heading);
+      font-size: 10pt;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .voorwie-card p {
+      font-size: 8.5pt;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE 4 & 4b: PROGRAMMA - Donker (2 pagina's)
+       ═══════════════════════════════════════════════════════════════ */
+    .page-programma {
+      background: var(--primary);
+      padding: 18mm 16mm;
+      height: 100%;
+    }
+
+    .programma-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .section-label-light {
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 6px;
+    }
+
+    .section-title-light {
+      font-family: var(--font-heading);
+      font-size: 18pt;
+      color: white;
+    }
+
+    .programma-modules {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .programma-module {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius-2xl);
+      padding: 20px 22px;
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .module-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: white;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 13pt;
+      flex-shrink: 0;
+    }
+
+    .module-title {
+      font-family: var(--font-heading);
+      font-size: 12pt;
+      color: white;
+      font-weight: 600;
+    }
+
+    .module-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .module-tag {
+      font-size: 7.5pt;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.9);
+    }
+
+    .module-tag.days {
+      background: white;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .module-description {
+      font-size: 9pt;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+    }
+
+    .programma-photo {
+      background: rgba(255,255,255,0.08);
+      border-radius: var(--radius-2xl);
+      margin-top: 20px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .programma-photo.large {
+      height: 400px;
+    }
+
+    .programma-photo span {
+      font-size: 9pt;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+    }
+
+    .programma-highlight {
+      background: rgba(255,255,255,0.12);
+      border-radius: var(--radius-2xl);
+      padding: 16px 20px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .programma-highlight p {
+      font-size: 9pt;
+      color: white;
+      line-height: 1.6;
+    }
+
+    .programma-highlight strong {
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE 5: WAT JE LEERT D - Lijst met iconen
+       ═══════════════════════════════════════════════════════════════ */
+    .page-watjeleert {
+      background: var(--bg-seashell);
+      padding: 18mm 16mm;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .watjeleert-header {
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    .watjeleert-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .watjeleert-col-title {
+      font-family: var(--font-heading);
+      font-size: 10pt;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .watjeleert-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .watjeleert-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 14px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .watjeleert-card-title {
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .watjeleert-card p {
+      font-size: 8pt;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .watjeleert-highlight {
+      background: var(--primary);
+      border-radius: var(--radius-2xl);
+      padding: 18px 24px;
+      text-align: center;
+    }
+
+    .watjeleert-highlight p {
+      font-size: 10pt;
+      color: white;
+      line-height: 1.6;
+    }
+
+    .watjeleert-highlight strong {
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE 6: OVER KIRSTEN C - Donker split
+       ═══════════════════════════════════════════════════════════════ */
+    .page-overkirsten {
+      background: var(--primary);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100%;
+    }
+
+    .overkirsten-photo {
+      background-image: url('/images/kirsten/7Z8A7821.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .overkirsten-content {
+      padding: 18mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .overkirsten-content h2 {
+      font-family: var(--font-heading);
+      font-size: 18pt;
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .overkirsten-content p {
+      font-size: 10pt;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .overkirsten-credentials {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .credential {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+    }
+
+    .credential svg {
+      width: 20px;
+      height: 20px;
+      stroke: white;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .credential span {
+      font-size: 10pt;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE 7: PRAKTISCH - Centered
+       ═══════════════════════════════════════════════════════════════ */
+    .page-praktisch {
+      background: var(--bg-seashell);
+      padding: 18mm 16mm;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .praktisch-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .praktisch-title {
+      font-family: var(--font-heading);
+      font-size: 18pt;
+      color: var(--primary);
+    }
+
+    .praktisch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .praktisch-info-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 16px 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .praktisch-info-icon {
+      display: flex;
+      height: 40px;
+      width: 40px;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full);
+      background: rgba(44,71,150,0.08);
+      flex-shrink: 0;
+    }
+
+    .praktisch-info-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .praktisch-info-label {
+      font-size: 7pt;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .praktisch-info-value {
+      font-size: 10pt;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .praktisch-price-block {
+      background: var(--primary);
+      border-radius: var(--radius-2xl);
+      padding: 24px 28px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .praktisch-price-label {
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 4px;
+    }
+
+    .praktisch-price-amount {
+      font-family: var(--font-heading);
+      font-size: 26pt;
+      color: white;
+      font-weight: 600;
+    }
+
+    .praktisch-price-note {
+      font-size: 9pt;
+      color: rgba(255,255,255,0.7);
+      margin-top: 4px;
+    }
+
+    .praktisch-includes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .praktisch-includes-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 12px 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 8.5pt;
+      color: var(--text-secondary);
+    }
+
+    .praktisch-includes-card svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE 8: FAQ
+       ═══════════════════════════════════════════════════════════════ */
+    .page-faq {
+      background: var(--bg-seashell);
+      padding: 18mm 16mm;
+      height: 100%;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 16px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .faq-question {
+      font-family: var(--font-heading);
+      font-size: 9.5pt;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .faq-answer {
+      font-size: 8.5pt;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE 9: CONTACT B - Split (GEEN LOGO)
+       ═══════════════════════════════════════════════════════════════ */
+    .page-contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100%;
+    }
+
+    .contact-photo {
+      background-image: url('/images/kirsten/7Z8A7950.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .contact-content {
+      background: var(--bg-seashell);
+      padding: 18mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-title {
+      font-family: var(--font-heading);
+      font-size: 18pt;
+      color: var(--primary);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .contact-intro {
+      font-size: 10pt;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-xl);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .contact-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .contact-text {
+      font-size: 11pt;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .contact-location {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(44,71,150,0.15);
+    }
+
+    .contact-location-title {
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .contact-location-address {
+      font-size: 10pt;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .contact-website {
+      font-family: var(--font-heading);
+      font-size: 11pt;
+      color: var(--primary);
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PAGE 1: COVER C - Magazine
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="page page-cover">
+    <div class="cover-bg-photo"></div>
+    <div class="cover-overlay"></div>
+    <div class="cover-top-bar">
+      <img src="/images/logo.png" alt="Logo" class="cover-logo">
+      <span class="cover-year">2026</span>
+    </div>
+    <div class="cover-content">
+      <h1 class="cover-title">Professioneel<br>InCompany Coach</h1>
+      <p class="cover-tagline">Word de coach die jouw organisatie nodig heeft</p>
+      <div class="cover-tags">
+        <span class="cover-tag">HBO-niveau</span>
+        <span class="cover-tag">18 lesdagen</span>
+        <span class="cover-tag">Start april 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PAGE 2: INTRO D - Donker
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="page page-intro">
+    <div class="intro-label">Welkom</div>
+    <p class="intro-pull-quote">Er zijn heel veel coachopleidingen in Nederland. En toch ontbreekt er eentje: die voor de incompany coach.</p>
+    <div class="intro-body">
+      <p>Steeds meer organisaties zien het nut, en zelfs de noodzaak, van een coach die in dienst is. Iemand die de organisatie van binnenuit kent, de cultuur begrijpt, weet wat er speelt en snel kan schakelen.</p>
+      <p>Toch zijn vrijwel alle coachopleidingen gericht op het starten van een eigen praktijk. En dat is prima. Maar als jij binnen je organisatie wilt coachen, mis je iets. Dat weet ik, want al vanaf 1999 geef ik les bij diverse opleiders en zie ik het steeds weer gebeuren.</p>
+      <p>Daarom heb ik al mijn ervaring als docent, trainer, senior practitioner coach en psychodynamisch therapeut gebundeld tot deze opleiding. Inclusief mijn jarenlange werkervaring in meerdere sectoren: van onderwijs tot zorg, van scheepvaart tot uitzendbranche. Ik begrijp wat je als werknemer meemaakt en hoe je collega's daarin kunt begeleiden.</p>
+      <p>In deze gids neem ik je mee door de opleiding.</p>
+      <div class="intro-signature">— Kirsten Kok</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PAGE 3: VOOR WIE A - Kaarten
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="page page-voorwie">
+    <div class="voorwie-header">
+      <div class="section-label">Voor wie</div>
+      <h2 class="section-title">Voor wie is deze opleiding?</h2>
+    </div>
+    <p class="voorwie-intro">Deze opleiding op HBO-niveau is bedoeld voor iedereen die zich wil bekwamen in het coachvak met een stevig, onderbouwd fundament.</p>
+
+    <div class="voorwie-grid">
+      <!-- Rij 1: Cards links, Foto rechts -->
+      <div class="voorwie-row">
+        <div class="voorwie-cards-stack">
+          <div class="voorwie-card">
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <h3>Leidinggevende</h3>
+            <p>Je wilt je team coachend helpen groeien. Niet door alles over te nemen, maar door de juiste vragen te stellen en ruimte te geven. Je zult verbaasd zijn wat je al op de automatische piloot doet, en wat je nog kunt leren.</p>
+          </div>
+          <div class="voorwie-card">
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>HR / L&D Professional</h3>
+            <p>Je wilt coaches in huis hebben die programma's effectiever maken en bijdragen aan duurzame inzetbaarheid. Met deze opleiding kun je zelf die rol pakken of collega's daarin begeleiden.</p>
+          </div>
+        </div>
+        <div class="voorwie-photo" style="background-image: url('/christina-wocintechchat-com-m-SJvDxw0azqw-unsplash.jpg'); background-size: cover; background-position: center;"></div>
+      </div>
+
+      <!-- Rij 2: Foto links, Cards rechts -->
+      <div class="voorwie-row">
+        <div class="voorwie-photo" style="background-image: url('/oguz-yagiz-kara-Ycrn0qTwXWo-unsplash.jpg'); background-size: cover; background-position: center;"></div>
+        <div class="voorwie-cards-stack">
+          <div class="voorwie-card">
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <h3>Ambitieuze Werknemer</h3>
+            <p>Je werkt in een organisatie en zoekt een tweede rol, of wilt overstappen naar een coachfunctie binnen je werkgever. De functie hoeft nog niet in het verschiet te liggen. Het mag ook een stip op de horizon zijn.</p>
+          </div>
+          <div class="voorwie-card">
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <h3>Zorgprofessional</h3>
+            <p>Je ziet dat je mensen meer helpt door hen in beweging te krijgen dan door je eigen expertise in te zetten. Je wilt coachvaardigheden toevoegen aan je huidige vak.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PAGE 4a: PROGRAMMA - Modules 1, 2 & 3
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="page page-programma">
+    <div class="programma-header">
+      <div class="section-label-light">Het programma</div>
+      <h2 class="section-title-light">5 modules in 9 maanden</h2>
+    </div>
+
+    <div class="programma-modules">
+      <div class="programma-module">
+        <div class="module-header">
+          <div class="module-number">1</div>
+          <h3 class="module-title">Zelfleiderschap</h3>
+        </div>
+        <div class="module-tags">
+          <span class="module-tag days">4 lesdagen</span>
+          <span class="module-tag">Authenticiteit</span>
+          <span class="module-tag">Zelfreflectie</span>
+          <span class="module-tag">Persoonlijk Actie Plan</span>
+          <span class="module-tag">Ethiek</span>
+        </div>
+        <p class="module-description">Je begint bij jezelf. Want een goede coach kent zichzelf. Je onderzoekt wie je bent (geworden), werkt aan je eigen authenticiteit en leert dit ook bij coachees toe te passen. Je maakt je Persoonlijk Actie Plan dat je het hele jaar begeleidt.</p>
+      </div>
+
+      <div class="programma-module">
+        <div class="module-header">
+          <div class="module-number">2</div>
+          <h3 class="module-title">Wat is coaching</h3>
+        </div>
+        <div class="module-tags">
+          <span class="module-tag days">2 lesdagen</span>
+          <span class="module-tag">Intakegesprekken</span>
+          <span class="module-tag">Rapport maken</span>
+          <span class="module-tag">Coachmodel</span>
+          <span class="module-tag">Gespreksstructuur</span>
+        </div>
+        <p class="module-description">Hoe verschilt coaching van advies, therapie of management? Je leert een helder coachmodel, oefent met intakegesprekken en ontdekt hoe je rapport maakt. Dit is de basis waarop alles wat volgt gebouwd wordt.</p>
+      </div>
+
+      <div class="programma-module">
+        <div class="module-header">
+          <div class="module-number">3</div>
+          <h3 class="module-title">Methoden & Technieken</h3>
+        </div>
+        <div class="module-tags">
+          <span class="module-tag days">7 lesdagen</span>
+          <span class="module-tag">NLP</span>
+          <span class="module-tag">RET</span>
+          <span class="module-tag">Roos van Leary</span>
+          <span class="module-tag">Systemisch coachen</span>
+          <span class="module-tag">Kernkwaliteiten</span>
+        </div>
+        <p class="module-description">De grootste en meest intensieve module. Je leert bewezen methoden en technieken en gaat ze direct toepassen. Vanaf deze module werk je met eigen coachees: 6 trajecten van 5 sessies elk. Hier word je echt coach.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PAGE 4b: PROGRAMMA - Modules 4 & 5
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="page page-programma">
+    <div class="programma-modules">
+      <div class="programma-module">
+        <div class="module-header">
+          <div class="module-number">4</div>
+          <h3 class="module-title">Praktijk & Verdieping</h3>
+        </div>
+        <div class="module-tags">
+          <span class="module-tag days">3 lesdagen</span>
+          <span class="module-tag">Supervisie</span>
+          <span class="module-tag">Live coaching</span>
+          <span class="module-tag">Burn-out preventie</span>
+          <span class="module-tag">Video-feedback</span>
+        </div>
+        <p class="module-description">Een hele dag live coachingsessies onder supervisie. Je krijgt directe feedback op je werk. Daarna verdiep je je in burn-out: hoe herken je de signalen, hoe pak je preventie aan, en hoe begeleid je iemand die vastloopt?</p>
+      </div>
+
+      <div class="programma-module">
+        <div class="module-header">
+          <div class="module-number">5</div>
+          <h3 class="module-title">Afronding</h3>
+        </div>
+        <div class="module-tags">
+          <span class="module-tag days">2 lesdagen</span>
+          <span class="module-tag">Schriftelijk examen</span>
+          <span class="module-tag">Praktijkexamen</span>
+          <span class="module-tag">Eindpresentatie</span>
+          <span class="module-tag">Diploma</span>
+        </div>
+        <p class="module-description">Het sluitstuk. Je doet schriftelijk examen, een mondeling praktijkexamen en presenteert je eigen coachingvisie. Daarna: feestelijke diploma-uitreiking. Je bent nu Professioneel InCompany Coach.</p>
+      </div>
+    </div>
+
+    <div class="programma-photo large" style="background-image: url('/images/brochure/DSC04677.JPG'); background-size: cover; background-position: center top;"></div>
+
+    <div class="programma-highlight">
+      <p><strong>Na afronding</strong> heb je meer dan 30 coachsessies ervaring en ben je startbekwaam als coach binnen organisaties.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PAGE 5: WAT JE LEERT - Twee kolommen met kaartjes
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="page page-watjeleert">
+    <div class="watjeleert-header">
+      <div class="section-label">Inhoud</div>
+      <h2 class="section-title">Dit ga je leren:</h2>
+    </div>
+
+    <div class="watjeleert-columns">
+      <div class="watjeleert-col">
+        <h3 class="watjeleert-col-title">Technieken & methoden</h3>
+        <div class="watjeleert-card">
+          <div class="watjeleert-card-title">Rationeel Emotieve Training (RET)</div>
+          <p>Overtuigingen herkennen en doorbreken die je coachee belemmeren.</p>
+        </div>
+        <div class="watjeleert-card">
+          <div class="watjeleert-card-title">Neuro Linguistisch Programmeren (NLP)</div>
+          <p>Communicatiepatronen begrijpen en effectief inzetten in coaching.</p>
+        </div>
+        <div class="watjeleert-card">
+          <div class="watjeleert-card-title">Systemisch coachen</div>
+          <p>Organisatiedynamieken zichtbaar maken met opstellingen.</p>
+        </div>
+        <div class="watjeleert-card">
+          <div class="watjeleert-card-title">Roos van Leary & Kernkwaliteiten</div>
+          <p>Gedragspatronen in kaart brengen en kwaliteiten benutten.</p>
+        </div>
+      </div>
+      <div class="watjeleert-col">
+        <h3 class="watjeleert-col-title">Coachvaardigheden</h3>
+        <div class="watjeleert-card">
+          <div class="watjeleert-card-title">Intakegesprekken voeren</div>
+          <p>Een veilige basis leggen en heldere doelen formuleren.</p>
+        </div>
+        <div class="watjeleert-card">
+          <div class="watjeleert-card-title">Rapport maken & afstemmen</div>
+          <p>Verbinding opbouwen zodat je coachee zich echt gehoord voelt.</p>
+        </div>
+        <div class="watjeleert-card">
+          <div class="watjeleert-card-title">Burn-out preventie & begeleiding</div>
+          <p>Signalen vroeg herkennen en collega's begeleiden die vastlopen.</p>
+        </div>
+        <div class="watjeleert-card">
+          <div class="watjeleert-card-title">Ethisch handelen als coach</div>
+          <p>Grenzen bewaken en professioneel omgaan met vertrouwen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="watjeleert-highlight">
+      <p><strong>Vanaf module 3</strong> ga je aan de slag met echte coachees. Aan het eind heb je meer dan 30 coachsessies ervaring.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PAGE 6: OVER KIRSTEN C - Donker split
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="page page-overkirsten">
+    <div class="overkirsten-photo"></div>
+    <div class="overkirsten-content">
+      <div class="section-label-light">De trainer</div>
+      <h2>Over Kirsten</h2>
+      <p>Al vanaf 1999 geef ik les bij diverse opleiders. Mijn achtergrond als psychodynamisch therapeut maakt dat ik snap wat je als werknemer meemaakt en hoe je collega's daarin kunt begeleiden.</p>
+      <p>Ik heb gewerkt in meerdere sectoren: van onderwijs tot zorg, van scheepvaart tot uitzendbranche. Die breedte neem ik mee in de opleiding.</p>
+      <div class="overkirsten-credentials">
+        <div class="credential">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <span>25+ jaar ervaring</span>
+        </div>
+        <div class="credential">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <span>CRKBO geregistreerd docent</span>
+        </div>
+        <div class="credential">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <span>Senior Practitioner Coach (NOBCO)</span>
+        </div>
+        <div class="credential">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span>Psychodynamisch therapeut</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PAGE 7: PRAKTISCH - Centered
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="page page-praktisch">
+    <div class="praktisch-header">
+      <div class="section-label">Details</div>
+      <h2 class="praktisch-title">Praktische informatie</h2>
+    </div>
+
+    <div class="praktisch-grid">
+      <div class="praktisch-info-card">
+        <div class="praktisch-info-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div>
+          <div class="praktisch-info-label">Start</div>
+          <div class="praktisch-info-value">April 2026</div>
+        </div>
+      </div>
+      <div class="praktisch-info-card">
+        <div class="praktisch-info-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="praktisch-info-label">Duur</div>
+          <div class="praktisch-info-value">18 dagen / 9 maanden</div>
+        </div>
+      </div>
+      <div class="praktisch-info-card">
+        <div class="praktisch-info-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="praktisch-info-label">Locatie</div>
+          <div class="praktisch-info-value">De Sjoel, Brielle</div>
+        </div>
+      </div>
+      <div class="praktisch-info-card">
+        <div class="praktisch-info-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div>
+          <div class="praktisch-info-label">Niveau</div>
+          <div class="praktisch-info-value">HBO | Instap: MBO4</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="praktisch-price-block">
+      <div class="praktisch-price-label">Investering</div>
+      <div class="praktisch-price-amount">&#8364;4.250</div>
+      <div class="praktisch-price-note">BTW-vrijgesteld (CRKBO geregistreerd)</div>
+    </div>
+
+    <div class="praktisch-includes-grid">
+      <div class="praktisch-includes-card">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Studiemateriaal: handouts, film, audio</span>
+      </div>
+      <div class="praktisch-includes-card">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Subgroep oefensessies tussen modules</span>
+      </div>
+      <div class="praktisch-includes-card">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Groepssupervisie met feedback</span>
+      </div>
+      <div class="praktisch-includes-card">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Peer-groep voor case-besprekingen</span>
+      </div>
+      <div class="praktisch-includes-card">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Certificeringstoets: examen + presentatie</span>
+      </div>
+      <div class="praktisch-includes-card">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        <span>Toegang tot Kirsten voor vragen</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PAGE 8: FAQ
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="page page-faq">
+    <div class="faq-header">
+      <div class="section-label">Vragen</div>
+      <h2 class="section-title">Veelgestelde vragen</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">Heb ik een specifieke vooropleiding nodig?</div>
+        <div class="faq-answer">Nee. We hanteren een instapniveau van minimaal MBO4. Wat telt is je motivatie en interesse in het coachvak.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Kan ik de opleiding combineren met mijn baan?</div>
+        <div class="faq-answer">Absoluut, daar is de opleiding op ingericht. Je bent 2 aaneengesloten dagen per maand op locatie. Daarnaast investeer je 6 tot 8 uur per week in zelfstudie en praktijkopdrachten.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Ga ik ook echt coachen tijdens de opleiding?</div>
+        <div class="faq-answer">Ja! Vanaf module 3 werk je met eigen coachees. In totaal doe je 6 trajecten van 5 sessies. Aan het eind heb je meer dan 30 coachsessies ervaring.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Wat krijg ik na afronding?</div>
+        <div class="faq-answer">Na het behalen van je examens en eindpresentatie ontvang je het diploma Professioneel InCompany Coach. Je bent dan startbekwaam als coach binnen organisaties.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Kan mijn werkgever de opleiding vergoeden?</div>
+        <div class="faq-answer">In veel gevallen wel, via opleidingsbudget of scholingsfondsen. Omdat we CRKBO geregistreerd zijn is de opleiding BTW-vrij, wat het extra aantrekkelijk maakt. We denken graag mee.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Hoe klein zijn de groepen?</div>
+        <div class="faq-answer">We werken met kleine groepen zodat er voldoende persoonlijke aandacht is. Je leert niet alleen van de docent maar ook van en met elkaar.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Kan ik een lesdag inhalen?</div>
+        <div class="faq-answer">Ja. Bij afwezigheid kun je in overleg op een ander moment inhalen, of een vervangende opdracht doen. We vragen minimaal 80% aanwezigheid.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PAGE 9: CONTACT B - Split (ZONDER LOGO)
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="page page-contact">
+    <div class="contact-photo"></div>
+    <div class="contact-content">
+      <h2 class="contact-title">Laten we kennismaken</h2>
+      <p class="contact-intro">Het liefst praat ik je even persoonlijk bij. Plan een vrijblijvend kennismakingsgesprek.</p>
+
+      <div class="contact-list">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <span class="contact-text">06 51 96 64 96</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <span class="contact-text">contact@kirstenkok.nl</span>
+        </div>
+      </div>
+
+      <div class="contact-location">
+        <div 
